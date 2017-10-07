@@ -4,11 +4,15 @@
 //
 //  Created by zeyong shan on 10/6/17.
 //  Copyright © 2017 zeyong shan. All rights reserved.
-//
+
 
 import Foundation
-
+/**
+ struct name: DescriptionGenerator
+ the descriptionGenerator is used to add, modify the descriptioons for calculator brain.
+ **/
 public struct DescriptionGenerator {
+
 
     public mutating func addConstant(currentNum: String) {
         context = currentNum
