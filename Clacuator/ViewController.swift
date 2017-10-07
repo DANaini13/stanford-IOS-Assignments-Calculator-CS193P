@@ -10,11 +10,34 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    /**
+     The property that control the descrition display screen in the top of the view
+     */
     @IBOutlet weak private var descriptionDisplay: UILabel!
+    /**
+     The property that control the display screen in the top of the view
+     */
     @IBOutlet weak private var display: UILabel!
+    /**
+     The private variable that show that if the user is in the middle of the input.
+     */
     private var userInTheMiddleOfInput = false
+    /**
+     The private variable that show that if there are already dot in the scree.
+     */
     private var userInTheDot           = false
+    /**
+     The calculator brain that store all the calculation operations for the calculator.
+     */
     private var brain = ClacualtorBrain()
+    /**
+     The camputed value that convert the string that will be displayed on the display screen
+     to the Double.
+     - get:
+     returns a double that converted from display.text, return 0.0 if the display.text is nil
+     - set:
+     use number formatter to store the double into the display screen.
+     */
     private var displayValue:Double {
         set {
             let numberFormatter = NumberFormatter()
@@ -39,6 +62,17 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    /**
+     The function that response the 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 buttons
+     on the view.
+     
+     - parameter sender: the UIButton that call this function.
+     - Author:
+     Zeyong Shan
+     - Version:
+     0.1
+     
+     */
     @IBAction private func touchDigit(_ sender: UIButton) {
         if userInTheMiddleOfInput {
             display.text = display.text! + sender.currentTitle!
@@ -49,6 +83,17 @@ class ViewController: UIViewController {
         brain.readyToReplaceDescription()
     }
     
+    /**
+     The function that response the buttons that contains the operators.
+     on the view.
+     
+     - parameter sender: the UIButton that call this function.
+     - Author:
+     Zeyong Shan
+     - Version:
+     0.1
+     
+     */
     @IBAction private func touchOperand(_ sender: UIButton) {
         if userInTheMiddleOfInput {
             brain.setOperand(displayValue)
@@ -64,6 +109,19 @@ class ViewController: UIViewController {
         userInTheDot = false
     }
     
+    /**
+     The function that response the "AC" button. it will clean all
+     the display constext and refresh the status of the calculator.
+     
+     - parameter sender: the UIButton that call this function.
+     - Author:
+     Zeyong Shan
+     - Important:
+     This function will never use the sender parameter.
+     - Version:
+     0.1
+     
+     */
     @IBAction private func allClear(_ sender: UIButton) {
         brain = ClacualtorBrain()
         display.text = "0"
@@ -72,6 +130,19 @@ class ViewController: UIViewController {
         descriptionDisplay.text = "Description"
     }
     
+    /**
+     The function that response the "." button. it will set a
+     dot in the display screen if there is no dot on the screen.
+     
+     - parameter sender: the UIButton that call this function.
+     - Author:
+     Zeyong Shan
+     - Important:
+     This function will never use the sender parameter.
+     - Version:
+     0.1
+     
+     */
     @IBAction private func touchDot(_ sender: UIButton) {
         if userInTheDot {
             return
@@ -85,12 +156,27 @@ class ViewController: UIViewController {
         userInTheDot = true
     }
     
+    /**
+     The function that response the backspace buttons. it will delete
+     a character form the display.text and if would left a "0" if
+     the string is empty
+     
+     - parameter sender: the UIButton that call this function.
+     - Author:
+     Zeyong Shan
+     - Important:
+     This function will never use the sender parameter.
+     - Version:
+     0.1
+     
+     */
     @IBAction private func touchBackspace(_ sender: UIButton) {
         brain.readyToReplaceDescription()
         display.text?.removeLast()
         userInTheMiddleOfInput = true
         if display.text! == "" {
             display.text = "0"
+            userInTheMiddleOfInput = false
         }
     }
     
