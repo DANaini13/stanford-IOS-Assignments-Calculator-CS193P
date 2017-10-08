@@ -38,18 +38,18 @@ public struct DescriptionGenerator {
      number to finish the operation.
      
      - parameters:
-     - operation:
-     The variable that store the function name as a string.
-     - prefix:
-     To declare that the function should be prefixed or postfixed.
-     - currentNum:
-     The number that used to take part into the operation.
+         - operation:
+             The variable that store the function name as a string.
+         - prefix:
+             To declare that the function should be prefixed or postfixed.
+         - currentNum:
+             The number that used to take part into the operation.
      - Author:
-     Zeyong Shan
+         Zeyong Shan
      - Important:
-     This function might modify the context of the description.
+         This function might modify the context of the description.
      - Version:
-     0.1
+         0.1
      
      */
     
@@ -71,12 +71,12 @@ public struct DescriptionGenerator {
      number to finish the operation.
      
      - parameters:
-     - operation:
-     The variable that store the function name as a string.
-     - firstNum:
-     The first numebr that will take part in the oepration.
-     - replace:
-     To declare that if the firstNum will replace the current description. true or false
+         - operation:
+             The variable that store the function name as a string.
+         - firstNum:
+             The first numebr that will take part in the oepration.
+         - replace:
+             To declare that if the firstNum will replace the current description. true or false
      - Author:
      Zeyong Shan
      - Important:
