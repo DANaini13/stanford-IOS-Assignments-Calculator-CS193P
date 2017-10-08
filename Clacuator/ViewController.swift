@@ -31,7 +31,7 @@ class ViewController: UIViewController {
      */
     private var brain = ClacualtorBrain()
     /**
-     The camputed value that convert the string that will be displayed on the display screen
+     The camputed value to display on the display screen
      to the Double.
      - get:
      returns a double that converted from display.text, return 0.0 if the display.text is nil
@@ -110,7 +110,7 @@ class ViewController: UIViewController {
     }
     
     /**
-     The function that response the "AC" button. it will clean all
+     The function that response to the "AC" button. it will clean all
      the display constext and refresh the status of the calculator.
      
      - parameter sender: the UIButton that call this function.

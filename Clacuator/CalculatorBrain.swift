@@ -120,7 +120,7 @@ public struct ClacualtorBrain {
     
     /**
      The function that set the operand to the calculatorBrain,
-     ethor the fist or the second.
+     either the fist or the second.
      
      - parameter num: the number that will replace the accumulator.
      - Author:

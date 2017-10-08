@@ -33,9 +33,7 @@ public struct DescriptionGenerator {
     
     /**
      This function is used to add a unary operation to description.
-     It will sotre the first number that will take part in the
-     operation to the data structure first then waiting for the second
-     number to finish the operation.
+     It will replace the current description with the result description
      
      - parameters:
          - operation:
@@ -66,8 +64,8 @@ public struct DescriptionGenerator {
     
     /**
      This function is used to add a binary operation to description.
-     It will sotre the first number that will take part in the
-     operation to the data structure first then waiting for the second
+     It will sotre the first number to take part in the
+     operation later, then waiting for the second
      number to finish the operation.
      
      - parameters:
@@ -124,7 +122,7 @@ public struct DescriptionGenerator {
     /**
      The computed read-only variable that return the current description.
      the return value depends on the situation of pendingBinaryOperation and
-     the current context. It would return the context with "..." in the end
+     the current context. It would return the context with "..." at the end
      if there is binary operation are pending, return "" if no description.
      - Author:
      Zeyong Shan
