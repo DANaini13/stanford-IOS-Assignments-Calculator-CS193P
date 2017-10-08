@@ -1,5 +1,5 @@
 # Assignment 1 (Calculator)
-## Stanford CS 193P IPhone Application Development
+## Stanford CS 193P IOS Application Development
 
 ### functionality
 
