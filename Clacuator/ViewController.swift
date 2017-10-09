@@ -46,7 +46,7 @@ class ViewController: UIViewController {
             }else {
                 numberFormatter.numberStyle = NumberFormatter.Style.decimal
             }
-            //numberFormatter.maximumFractionDigits = 6
+            numberFormatter.maximumFractionDigits = 6
             let nsNumber: NSDecimalNumber = NSDecimalNumber(value: newValue)
             numberFormatter.string(from: nsNumber)
             if newValue >= Double.infinity || newValue <= -.infinity{
