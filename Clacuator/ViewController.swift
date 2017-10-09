@@ -148,11 +148,13 @@ class ViewController: UIViewController {
             return
         }
         if !userInTheMiddleOfInput {
-            display.text = "."
+            display.text = "0."
             userInTheMiddleOfInput = true
+            userInTheDot = true
             return
+        }else {
+            display.text = display.text! + "."
         }
-        display.text = display.text! + "."
         userInTheDot = true
     }
     
