@@ -41,10 +41,18 @@ class ViewController: UIViewController {
     private var displayValue:Double {
         set {
             let numberFormatter = NumberFormatter()
-            numberFormatter.alwaysShowsDecimalSeparator = false
+            if String(newValue).lengthOfBytes(using: .ascii) > 12{
+                numberFormatter.numberStyle = NumberFormatter.Style.scientific
+            }else {
+                numberFormatter.numberStyle = NumberFormatter.Style.decimal
+            }
             numberFormatter.maximumFractionDigits = 6
             let nsNumber: NSDecimalNumber = NSDecimalNumber(value: newValue)
             numberFormatter.string(from: nsNumber)
+            if newValue >= Double.infinity || newValue <= -.infinity{
+                display.text = "Error"
+                return
+            }
             display.text = numberFormatter.string(from: nsNumber)
         }
         get {
