@@ -14,4 +14,4 @@
 > 1. original ios calculator colors.
 > 2. good screen fit.
 > 3. screen shot above.
-![Image of Screen Shot](https://github.com/DANaini13/stanford-IOS-Assignment1-Calculator-CS193P/blob/master/screen-shot.png)
+![Image of Screen Shot](https://github.com/DANaini13/stanford-IOS-Assignment1-Calculator-CS193P/blob/master/Assn1/screen-shot.png)
