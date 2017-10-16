@@ -29,6 +29,11 @@ class ViewController: UIViewController {
     /**
      The calculator brain that store all the calculation operations for the calculator.
      */
+    
+    
+    @IBOutlet weak var mDisplay: UILabel!
+    
+    
     private var brain = ClacualtorBrain()
     /**
      The camputed value to display on the display screen
@@ -53,7 +58,8 @@ class ViewController: UIViewController {
                 display.text = "Error"
                 return
             }
-            display.text = numberFormatter.string(from: nsNumber)        }
+            display.text = numberFormatter.string(from: nsNumber)
+        }
         get {
             return Double(display.text ?? "Error")!
         }
@@ -87,7 +93,9 @@ class ViewController: UIViewController {
             display.text = sender.currentTitle!
             userInTheMiddleOfInput = true
         }
-        brain.readyToReplaceDescription()
+        if !brain.resultIsPending {
+     //       brain = ClacualtorBrain()
+        }
     }
     
     /**
@@ -107,12 +115,9 @@ class ViewController: UIViewController {
             userInTheMiddleOfInput = false
         }
         brain.perfromOperator(sender.currentTitle!)
-        displayValue = brain.result
-        if brain.resultIsPending {
-            descriptionDisplay.text = brain.description
-        } else {
-            descriptionDisplay.text = brain.description + "="
-        }
+        let (result, _, description) = brain.evaluate(using: variables)
+        displayValue = result ?? 0
+        descriptionDisplay.text = description
         userInTheDot = false
     }
     
@@ -134,7 +139,8 @@ class ViewController: UIViewController {
         display.text = "0"
         userInTheMiddleOfInput = false
         userInTheDot = false
-        descriptionDisplay.text = "Description"
+        descriptionDisplay.text = " "
+        variables = Dictionary()
     }
     
     /**
@@ -180,15 +186,39 @@ class ViewController: UIViewController {
      
      */
     @IBAction private func touchBackspace(_ sender: UIButton) {
-        brain.readyToReplaceDescription()
         display.text?.removeLast()
         userInTheMiddleOfInput = true
         if display.text! == "" {
-            display.text = "0"
+            brain.undo()
+            let (result, _, description) = brain.evaluate(using: variables)
+            displayValue = result ?? 0
+            descriptionDisplay.text = description
             userInTheMiddleOfInput = false
         }
     }
     
+    private var variables: Dictionary<String, Double> = Dictionary() {
+        didSet {
+            if let value = variables["M"] {
+                mDisplay.text = "M: " + String(value)
+            }else {
+                mDisplay.text = "M: "
+            }
+        }
+    }
+
+    @IBAction func setNewMValue(_ sender: UIButton) {
+        let variableName = sender.currentTitle!.last!
+        variables[String(variableName)] = displayValue
+        let (result, _, description) = brain.evaluate(using: variables)
+        displayValue = result ?? 0
+        descriptionDisplay.text = description
+        userInTheMiddleOfInput = false
+    }
+    
+    @IBAction func setValue(_ sender: UIButton) {
+        brain.setOperand(variable: sender.currentTitle!)
+    }
 }
 
 

@@ -40,8 +40,6 @@ public struct DescriptionGenerator {
              The variable that store the function name as a string.
          - prefix:
              To declare that the function should be prefixed or postfixed.
-         - currentNum:
-             The number that used to take part into the operation.
      - Author:
          Zeyong Shan
      - Important:
@@ -51,9 +49,9 @@ public struct DescriptionGenerator {
      
      */
     
-    public mutating func addUnaryOperationToCurrentDescription(operation: String, prefix: Bool, currentNum: String) {
+    public mutating func addUnaryOperationToCurrentDescription(operation: String, prefix: Bool) {
         if context == nil {
-            context = currentNum
+            context = "0"
         }
         if prefix {
             context =  operation + "(" + context! + ")"
@@ -71,10 +69,6 @@ public struct DescriptionGenerator {
      - parameters:
          - operation:
              The variable that store the function name as a string.
-         - firstNum:
-             The first numebr that will take part in the oepration.
-         - replace:
-             To declare that if the firstNum will replace the current description. true or false
      - Author:
      Zeyong Shan
      - Important:
@@ -83,12 +77,12 @@ public struct DescriptionGenerator {
      0.1
      
      */
-    public mutating func addBinaryOperation(operation: String, firstNum: String, replace: Bool) {
+    public mutating func addBinaryOperation(operation: String) {
         guard pendingBinaryOperation == nil else {
             return
         }
-        if replace || context == nil{
-            context = firstNum
+        if context == nil{
+            context = "0"
         }
         pendingBinaryOperation = PendingBinaryOperation(operatorName: operation, firstOperand: context!)
         context = nil
@@ -97,9 +91,7 @@ public struct DescriptionGenerator {
     /**
      This function is used to perform the binary operation that already stored by the
      function func addBinaryOperation(operation: Stirng, firstNum: String, replace: Bool)
-     
-     - parameter secondNum: The second number that will take part into the bianry operation.
-     
+          
      - Author:
      Zeyong Shan
      - Important:
@@ -108,12 +100,12 @@ public struct DescriptionGenerator {
      0.1
      
      */
-    public mutating func performBinaryOperation(secondNum: String) {
+    public mutating func performBinaryOperation() {
         guard pendingBinaryOperation != nil else {
             return
         }
         if context == nil {
-            context = secondNum
+            context = "0"
         }
         context = pendingBinaryOperation!.generationString(secondOperand: context!)
         pendingBinaryOperation = nil
@@ -140,12 +132,16 @@ public struct DescriptionGenerator {
             }
         }else {
             if context != nil {
-                returnValue =  context!
+                returnValue =  context! + "="
             } else {
                 returnValue =  ""
             }
         }
         return returnValue
+    }
+    
+    var resultIsPending: Bool {
+        return pendingBinaryOperation != nil
     }
     
     /**
