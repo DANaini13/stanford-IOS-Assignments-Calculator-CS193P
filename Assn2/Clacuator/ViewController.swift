@@ -219,6 +219,11 @@ class ViewController: UIViewController {
     @IBAction func setValue(_ sender: UIButton) {
         brain.setOperand(variable: sender.currentTitle!)
     }
+    
+    @IBAction func generateRandomNumber(_ sender: UIButton) {
+        displayValue = Double(arc4random()) / Double(UINT32_MAX)
+    }
+    
 }
 
 
