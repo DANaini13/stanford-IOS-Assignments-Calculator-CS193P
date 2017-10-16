@@ -15,9 +15,9 @@
 > 2. good screen fit.
 > 3. screen shot above.
 ![Image of Screen Shot](https://github.com/DANaini13/stanford-IOS-Assignments-Calculator-CS193P/blob/master/Assn1/screen-shot.png)
-
-
-
+>
+>
+>
 
 # Assignment 2 (Calculator with undo and variables)
 ## Stanford CS 193P IOS Application Development
