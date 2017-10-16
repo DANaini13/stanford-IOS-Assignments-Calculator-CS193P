@@ -303,7 +303,6 @@ public struct ClacualtorBrain {
     (result: Double?, isPending: Bool, description: String) {
         let result = calculateResult(using: variables, stepNum: steps.count - 1)
         let isPending = pendingStep != nil
-        let description = descriptionGenerator.description
         return (result, isPending, description)
     }
     
