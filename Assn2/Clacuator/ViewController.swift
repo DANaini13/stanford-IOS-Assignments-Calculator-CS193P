@@ -186,7 +186,6 @@ class ViewController: UIViewController {
      
      */
     @IBAction private func touchBackspace(_ sender: UIButton) {
-        display.text?.removeLast()
         userInTheMiddleOfInput = true
         if display.text! == "" {
             brain.undo()
@@ -194,7 +193,9 @@ class ViewController: UIViewController {
             displayValue = result ?? 0
             descriptionDisplay.text = description
             userInTheMiddleOfInput = false
+            return
         }
+        display.text?.removeLast()
     }
     
     private var variables: Dictionary<String, Double> = Dictionary() {
