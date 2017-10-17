@@ -56,10 +56,10 @@ public struct ClacualtorBrain {
      The abstract data type that define the Step.
      */
     private enum Step {
-        case constantGrabing(value: Double, description: String)
-        case unaryOperation(operation: (Double) -> Double, operand: Operand, description: String)
-        case pendingBinaryOperation(operation: (Double, Double) -> Double, operand: Operand, description: String)
-        case performBinaryOperation(pedingStep: (Int), secondOperand: Operand, description: String)
+        case constantGrabing(value: Double, description: DescriptionGenerator)
+        case unaryOperation(operation: (Double) -> Double, operand: Operand, description: DescriptionGenerator)
+        case pendingBinaryOperation(operation: (Double, Double) -> Double, operand: Operand, description: DescriptionGenerator)
+        case performBinaryOperation(pedingStep: (Int), secondOperand: Operand, description: DescriptionGenerator)
     }
     
     /**
@@ -80,7 +80,27 @@ public struct ClacualtorBrain {
     /**
      an array to store every calculation steps
      */
-    private var steps:[Step] = []
+    private var steps:[Step] = [] {
+        didSet {
+            guard steps.count != 0 else {
+                descriptionGenerator = DescriptionGenerator()
+                return
+            }
+            if case Step.pendingBinaryOperation = steps.last! {
+                pendingStep = steps.count - 1
+            }
+            switch steps.last! {
+            case .constantGrabing(_, let context):
+                descriptionGenerator = context
+            case .unaryOperation(_, _, let context):
+                descriptionGenerator = context
+            case .pendingBinaryOperation(_, _, let context):
+                descriptionGenerator = context
+            case .performBinaryOperation(_, _, let context):
+                descriptionGenerator = context
+            }
+        }
+    }
 
     /**
      operators is a dictionary that store the operations that would
@@ -187,27 +207,27 @@ public struct ClacualtorBrain {
             
         case .constant(let value):
             descriptionGenerator.addConstant(currentNum: symbol)
-            steps.append(Step.constantGrabing(value: value, description: descriptionGenerator.description))
+            steps.append(Step.constantGrabing(value: value, description: descriptionGenerator))
             operandSet = true
         case .unaryOperationPrefix(let function):
             descriptionGenerator.addUnaryOperationToCurrentDescription(operation: symbol, prefix: true)
             if operandSet {
-                steps.append(Step.unaryOperation(operation: function, operand: currentOperand!, description: descriptionGenerator.description))
+                steps.append(Step.unaryOperation(operation: function, operand: currentOperand!, description: descriptionGenerator))
             } else {
                 guard steps.count != 0 else {
                     return
                 }
-                steps.append(Step.unaryOperation(operation: function, operand: Operand.resultOfStep(steps.count-1), description: descriptionGenerator.description))
+                steps.append(Step.unaryOperation(operation: function, operand: Operand.resultOfStep(steps.count-1), description: descriptionGenerator))
             }
         case .unaryOperationPostfix(let function):
             descriptionGenerator.addUnaryOperationToCurrentDescription(operation: symbol, prefix: false)
             if operandSet {
-                steps.append(Step.unaryOperation(operation: function, operand: currentOperand!, description: descriptionGenerator.description))
+                steps.append(Step.unaryOperation(operation: function, operand: currentOperand!, description: descriptionGenerator))
             } else {
                 guard steps.count != 0 else {
                     return
                 }
-                steps.append(Step.unaryOperation(operation: function, operand: Operand.resultOfStep(steps.count-1), description: descriptionGenerator.description))
+                steps.append(Step.unaryOperation(operation: function, operand: Operand.resultOfStep(steps.count-1), description: descriptionGenerator))
             }
         case .binaryOperation(let function):
             if pendingStep != nil {
@@ -215,12 +235,12 @@ public struct ClacualtorBrain {
             }
             descriptionGenerator.addBinaryOperation(operation: symbol)
             if operandSet {
-                steps.append(Step.pendingBinaryOperation(operation: function, operand: currentOperand!, description: descriptionGenerator.description))
+                steps.append(Step.pendingBinaryOperation(operation: function, operand: currentOperand!, description: descriptionGenerator))
             } else {
                 guard steps.count != 0 else {
                     return
                 }
-                steps.append(Step.pendingBinaryOperation(operation: function, operand: Operand.resultOfStep(steps.count-1), description: descriptionGenerator.description))
+                steps.append(Step.pendingBinaryOperation(operation: function, operand: Operand.resultOfStep(steps.count-1), description: descriptionGenerator))
             }
             pendingStep = steps.count - 1
         case .equal:
@@ -229,9 +249,9 @@ public struct ClacualtorBrain {
             }
             descriptionGenerator.performBinaryOperation()
             if operandSet {
-                steps.append(Step.performBinaryOperation(pedingStep: pendingStep!, secondOperand: currentOperand!, description: descriptionGenerator.description))
+                steps.append(Step.performBinaryOperation(pedingStep: pendingStep!, secondOperand: currentOperand!, description: descriptionGenerator))
             } else {
-                steps.append(Step.performBinaryOperation(pedingStep: pendingStep!, secondOperand: Operand.resultOfStep(steps.count - 1), description: descriptionGenerator.description))
+                steps.append(Step.performBinaryOperation(pedingStep: pendingStep!, secondOperand: Operand.resultOfStep(steps.count - 1), description: descriptionGenerator))
             }
             pendingStep = nil
         }
@@ -267,21 +287,7 @@ public struct ClacualtorBrain {
      The public read-only property that return the current description of the calculator brain.
      */
     public var description: String {
-        guard let lastStep = steps.last else {
-            return ""
-        }
-        let newDescription:String
-        switch lastStep {
-        case .constantGrabing(_, let context):
-            newDescription = context
-        case .unaryOperation(_, _, let context):
-            newDescription = context
-        case .pendingBinaryOperation(_, _, let context):
-            newDescription = context
-        case .performBinaryOperation(_, _, let context):
-            newDescription = context
-        }
-        return newDescription
+        return descriptionGenerator.description
     }
     
     /**

@@ -218,6 +218,8 @@ class ViewController: UIViewController {
     
     @IBAction func setValue(_ sender: UIButton) {
         brain.setOperand(variable: sender.currentTitle!)
+        display.text = sender.currentTitle
+        userInTheMiddleOfInput = false
     }
     
     @IBAction func generateRandomNumber(_ sender: UIButton) {
