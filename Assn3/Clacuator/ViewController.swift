@@ -61,7 +61,10 @@ class ViewController: UIViewController {
             display.text = numberFormatter.string(from: nsNumber)
         }
         get {
-            return Double(display.text ?? "Error")!
+            if let number = Double(display.text!) {
+                return number
+            }
+            return Double.nan
         }
     }
     
