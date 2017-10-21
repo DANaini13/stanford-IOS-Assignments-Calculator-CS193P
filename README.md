@@ -59,8 +59,8 @@
 > 2. good screen fit.
 > 3. screen shot below.
 <br><br>
-![Image of Screen Shot](https://github.com/DANaini13/stanford-IOS-Assignments-Calculator-CS193P/blob/master/Assn3/screen-shot1.png)
+![Image of Screen Shot](https://github.com/DANaini13/stanford-IOS-Assignments-Calculator-CS193P/blob/master/Assn3/screen-shot1.png = 300x)
 <br><br>
-![Image of Screen Shot](https://github.com/DANaini13/stanford-IOS-Assignments-Calculator-CS193P/blob/master/Assn3/screen-shot2.png)
+![Image of Screen Shot](https://github.com/DANaini13/stanford-IOS-Assignments-Calculator-CS193P/blob/master/Assn3/screen-shot2.png = 300x)
 <br><br>
-![Image of Screen Shot](https://github.com/DANaini13/stanford-IOS-Assignments-Calculator-CS193P/blob/master/Assn3/screen-shot3.png)
+![Image of Screen Shot](https://github.com/DANaini13/stanford-IOS-Assignments-Calculator-CS193P/blob/master/Assn3/screen-shot3.png = 300x)
