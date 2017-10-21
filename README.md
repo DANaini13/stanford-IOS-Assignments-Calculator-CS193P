@@ -60,5 +60,7 @@
 > 3. screen shot below.
 <br><br>
 ![Image of Screen Shot](https://github.com/DANaini13/stanford-IOS-Assignments-Calculator-CS193P/blob/master/Assn3/screen-shot1.png)
+<br><br>
 ![Image of Screen Shot](https://github.com/DANaini13/stanford-IOS-Assignments-Calculator-CS193P/blob/master/Assn3/screen-shot2.png)
+<br><br>
 ![Image of Screen Shot](https://github.com/DANaini13/stanford-IOS-Assignments-Calculator-CS193P/blob/master/Assn3/screen-shot3.png)
