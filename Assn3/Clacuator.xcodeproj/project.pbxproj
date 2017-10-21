@@ -7,9 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F7261601F96F483001A849E /* GraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F72615F1F96F483001A849E /* GraphViewController.swift */; };
+		3F7261621F96F5C8001A849E /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7261611F96F5C8001A849E /* GraphView.swift */; };
+		3F7261641F96F604001A849E /* AxesDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7261631F96F604001A849E /* AxesDrawer.swift */; };
 		3F7B40411F88485E003FF9C5 /* DescriptionGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7B40401F88485E003FF9C5 /* DescriptionGenerator.swift */; };
 		3F95823C1F85BA5A00F800C3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F95823B1F85BA5A00F800C3 /* AppDelegate.swift */; };
-		3F95823E1F85BA5A00F800C3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F95823D1F85BA5A00F800C3 /* ViewController.swift */; };
+		3F95823E1F85BA5A00F800C3 /* CalculatorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F95823D1F85BA5A00F800C3 /* CalculatorViewController.swift */; };
 		3F9582411F85BA5A00F800C3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F95823F1F85BA5A00F800C3 /* Main.storyboard */; };
 		3F9582431F85BA5A00F800C3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3F9582421F85BA5A00F800C3 /* Assets.xcassets */; };
 		3F9582461F85BA5A00F800C3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F9582441F85BA5A00F800C3 /* LaunchScreen.storyboard */; };
@@ -17,10 +20,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F72615F1F96F483001A849E /* GraphViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphViewController.swift; sourceTree = "<group>"; };
+		3F7261611F96F5C8001A849E /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
+		3F7261631F96F604001A849E /* AxesDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AxesDrawer.swift; sourceTree = "<group>"; };
 		3F7B40401F88485E003FF9C5 /* DescriptionGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionGenerator.swift; sourceTree = "<group>"; };
 		3F9582381F85BA5900F800C3 /* Clacuator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Clacuator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F95823B1F85BA5A00F800C3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3F95823D1F85BA5A00F800C3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3F95823D1F85BA5A00F800C3 /* CalculatorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorViewController.swift; sourceTree = "<group>"; };
 		3F9582401F85BA5A00F800C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3F9582421F85BA5A00F800C3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3F9582451F85BA5A00F800C3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -39,6 +45,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F72615D1F96F3E3001A849E /* Calculator */ = {
+			isa = PBXGroup;
+			children = (
+				3F95823D1F85BA5A00F800C3 /* CalculatorViewController.swift */,
+				3F9582511F85C11000F800C3 /* CalculatorBrain.swift */,
+				3F7B40401F88485E003FF9C5 /* DescriptionGenerator.swift */,
+			);
+			path = Calculator;
+			sourceTree = "<group>";
+		};
+		3F72615E1F96F424001A849E /* Grapher */ = {
+			isa = PBXGroup;
+			children = (
+				3F7261631F96F604001A849E /* AxesDrawer.swift */,
+				3F7261611F96F5C8001A849E /* GraphView.swift */,
+				3F72615F1F96F483001A849E /* GraphViewController.swift */,
+			);
+			path = Grapher;
+			sourceTree = "<group>";
+		};
 		3F95822F1F85BA5900F800C3 = {
 			isa = PBXGroup;
 			children = (
@@ -59,11 +85,10 @@
 			isa = PBXGroup;
 			children = (
 				3F9582501F85BEDF00F800C3 /* HelpFiles */,
-				3F9582471F85BA5A00F800C3 /* Info.plist */,
-				3F95823D1F85BA5A00F800C3 /* ViewController.swift */,
-				3F9582511F85C11000F800C3 /* CalculatorBrain.swift */,
-				3F7B40401F88485E003FF9C5 /* DescriptionGenerator.swift */,
+				3F72615D1F96F3E3001A849E /* Calculator */,
+				3F72615E1F96F424001A849E /* Grapher */,
 				3F95823F1F85BA5A00F800C3 /* Main.storyboard */,
+				3F9582471F85BA5A00F800C3 /* Info.plist */,
 			);
 			path = Clacuator;
 			sourceTree = "<group>";
@@ -110,7 +135,7 @@
 				TargetAttributes = {
 					3F9582371F85BA5900F800C3 = {
 						CreatedOnToolsVersion = 9.0;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -151,9 +176,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F7B40411F88485E003FF9C5 /* DescriptionGenerator.swift in Sources */,
+				3F7261601F96F483001A849E /* GraphViewController.swift in Sources */,
 				3F9582521F85C11000F800C3 /* CalculatorBrain.swift in Sources */,
-				3F95823E1F85BA5A00F800C3 /* ViewController.swift in Sources */,
+				3F95823E1F85BA5A00F800C3 /* CalculatorViewController.swift in Sources */,
+				3F7261641F96F604001A849E /* AxesDrawer.swift in Sources */,
 				3F95823C1F85BA5A00F800C3 /* AppDelegate.swift in Sources */,
+				3F7261621F96F5C8001A849E /* GraphView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,12 +319,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H3ZELCLQP9;
 				INFOPLIST_FILE = Clacuator/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = NAsoftware.Clacuator;
+				PRODUCT_BUNDLE_IDENTIFIER = NAsoftware.Clacuator3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
@@ -309,12 +337,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = H3ZELCLQP9;
 				INFOPLIST_FILE = Clacuator/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = NAsoftware.Clacuator;
+				PRODUCT_BUNDLE_IDENTIFIER = NAsoftware.Clacuator3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class CalculatorViewController: UIViewController, UISplitViewControllerDelegate {
     
     /**
      The property that control the descrition display screen in the top of the view
@@ -35,6 +35,22 @@ class ViewController: UIViewController {
     
     
     private var brain = ClacualtorBrain()
+    
+    
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+        var destinationViewController = segue.destination
+        if let negivationController = destinationViewController as? UINavigationController {
+            destinationViewController = negivationController.visibleViewController ?? destinationViewController
+        }
+        if let graphViewController = destinationViewController as? GraphViewController {
+            graphViewController.calculatorViewController = self
+        }
+    }
+    
+    
     /**
      The camputed value to display on the display screen
      to the Double.
@@ -71,13 +87,22 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        splitViewController!.delegate = self
+        splitViewController!.view.isOpaque = false
+        splitViewController!.view.backgroundColor = UIColor.clear
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
+    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
+        return true
+    }
     
+
     /**
      The function that response the 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 buttons
      on the view.
@@ -119,7 +144,7 @@ class ViewController: UIViewController {
         }
         brain.perfromOperator(sender.currentTitle!)
         let (result, _, description) = brain.evaluate(using: variables)
-        displayValue = result ?? 0
+        displayValue = result ?? displayValue
         descriptionDisplay.text = description
         userInTheDot = false
     }
@@ -160,15 +185,15 @@ class ViewController: UIViewController {
      
      */
     @IBAction private func touchDot(_ sender: UIButton) {
-        if userInTheDot {
-            return
-        }
         if !userInTheMiddleOfInput {
             display.text = "0."
             userInTheMiddleOfInput = true
             userInTheDot = true
             return
         }else {
+            if userInTheDot {
+                return
+            }
             display.text = display.text! + "."
         }
         userInTheDot = true
@@ -196,6 +221,7 @@ class ViewController: UIViewController {
             displayValue = result ?? 0
             descriptionDisplay.text = description
             userInTheMiddleOfInput = false
+            userInTheDot = false
             return
         }
         display.text?.removeLast()
@@ -212,22 +238,32 @@ class ViewController: UIViewController {
     }
 
     @IBAction func setNewMValue(_ sender: UIButton) {
-        let variableName = sender.currentTitle!.last!
+        let variableName = "M"
         variables[String(variableName)] = displayValue
         let (result, _, description) = brain.evaluate(using: variables)
         displayValue = result ?? 0
         descriptionDisplay.text = description
         userInTheMiddleOfInput = false
+        userInTheDot = false
     }
     
     @IBAction func setValue(_ sender: UIButton) {
         brain.setOperand(variable: sender.currentTitle!)
         display.text = sender.currentTitle
         userInTheMiddleOfInput = false
+        userInTheDot = false
     }
     
     @IBAction func generateRandomNumber(_ sender: UIButton) {
         displayValue = Double(arc4random()) / Double(UINT32_MAX)
+        userInTheMiddleOfInput = true
+        userInTheDot = true
+    }
+    
+    func getYFromX(getValueThrough x:Double) -> Double? {
+        variables["M"] = x
+        let (result, _, _) = brain.evaluate(using: variables)
+        return result
     }
     
 }
