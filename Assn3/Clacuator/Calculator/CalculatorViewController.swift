@@ -31,7 +31,7 @@ class CalculatorViewController: UIViewController, UISplitViewControllerDelegate 
      */
     
     
-    @IBOutlet weak var mDisplay: UILabel!
+    @IBOutlet private weak var mDisplay: UILabel!
     
     
     private var brain = ClacualtorBrain()
@@ -120,9 +120,6 @@ class CalculatorViewController: UIViewController, UISplitViewControllerDelegate 
         } else {
             display.text = sender.currentTitle!
             userInTheMiddleOfInput = true
-        }
-        if !brain.resultIsPending {
-     //       brain = ClacualtorBrain()
         }
     }
     
@@ -227,6 +224,9 @@ class CalculatorViewController: UIViewController, UISplitViewControllerDelegate 
         display.text?.removeLast()
     }
     
+    /**
+     the dictionary that store the variable names and their value.
+     */
     private var variables: Dictionary<String, Double> = Dictionary() {
         didSet {
             if let value = variables["M"] {
@@ -237,7 +237,13 @@ class CalculatorViewController: UIViewController, UISplitViewControllerDelegate 
         }
     }
 
-    @IBAction func setNewMValue(_ sender: UIButton) {
+    /**
+     The function to set a new variable into the dictionary.
+     - parameter sender: the button that will response to.
+     - Author: Zeyong Shan.
+     - Version: 0.1
+     */
+    @IBAction private func setNewMValue(_ sender: UIButton) {
         let variableName = "M"
         variables[String(variableName)] = displayValue
         let (result, _, description) = brain.evaluate(using: variables)
@@ -247,19 +253,41 @@ class CalculatorViewController: UIViewController, UISplitViewControllerDelegate 
         userInTheDot = false
     }
     
-    @IBAction func setValue(_ sender: UIButton) {
+    /**
+     The function to set a new variable into the dictionary.
+     - parameter sender: the button that will response to.
+     - Author: Zeyong Shan.
+     - Version: 0.1
+     */
+    @IBAction private func setValue(_ sender: UIButton) {
         brain.setOperand(variable: sender.currentTitle!)
         display.text = sender.currentTitle
         userInTheMiddleOfInput = false
         userInTheDot = false
     }
     
-    @IBAction func generateRandomNumber(_ sender: UIButton) {
+    /**
+     the function that generateRandomNumber
+     - parameter sender: the button that touched
+     - Author: Zeyong Shan
+     - Version: 0.1
+     */
+    @IBAction private func generateRandomNumber(_ sender: UIButton) {
         displayValue = Double(arc4random()) / Double(UINT32_MAX)
         userInTheMiddleOfInput = true
         userInTheDot = true
     }
     
+    /**
+     The function that used to request result by code.
+     
+     - parameter getVauleThrough: the variable value that used to get the result
+     of the whole expression.
+     - returns:
+         return the result of the expression form the variable.
+     - Author: Zeyong Shan
+     - Version: 0.1
+     */
     func getYFromX(getValueThrough x:Double) -> Double? {
         variables["M"] = x
         let (result, _, _) = brain.evaluate(using: variables)

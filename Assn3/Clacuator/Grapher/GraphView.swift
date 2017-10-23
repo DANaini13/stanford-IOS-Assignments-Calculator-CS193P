@@ -14,13 +14,26 @@ class GraphView: UIView {
     // Only override draw() if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     
+    /**
+     The variable that store the scale of the whole graph view
+     */
     @IBInspectable
-    var scale:CGFloat                   = 0.05        { didSet { setNeedsDisplay() } }
+    var scale:CGFloat                     = 0.05        { didSet { setNeedsDisplay() } }
     
+    /**
+     The next origin point
+     */
     var moveOriginPointTo:CGPoint? { didSet { setNeedsDisplay() } }
     
+    /**
+     The points number that will be generate on the view
+     The quality of the graph
+     */
     private var generatedPointsNumber:Int = 999
     
+    /**
+     The read-only calculated variable. return the origin's poistion on the view
+     */
     var origin: CGPoint {
         if moveOriginPointTo != nil {
             return moveOriginPointTo!
@@ -44,8 +57,15 @@ class GraphView: UIView {
         }
     }
     
+    /**
+     The variable that store the position type of the origin point of the axis.
+     include: center, leftDown, rightDown, rightUp and leftUp
+     */
     var originPosition:originPositionType = .center
     
+    /**
+     The enum of the origin position
+     */
     enum originPositionType {
         case center
         case leftDown
@@ -54,12 +74,21 @@ class GraphView: UIView {
         case leftUp
     }
     
+    /**
+     The color of the axes.
+     */
     @IBInspectable
     var axesColor:UIColor               = UIColor.white
-    
+   
+    /**
+     The color of the function graph
+     */
     @IBInspectable
     var lineColor:UIColor               = UIColor.orange
     
+    /**
+     The Points that will be generated on the graph view
+     */
     var curvePoints:[CGPoint]           = []       { didSet { setNeedsDisplay() } }
     
     override func draw(_ rect: CGRect) {
@@ -67,7 +96,18 @@ class GraphView: UIView {
         drawFunction(rect)
     }
     
-    
+    /**
+     The function that generate the x coordinate of the points
+     on the screen
+
+     - returns:
+         This function will return a array of CGFloat that store the x coordinates of the graph picture
+     - Author:
+     Zeyong Shan
+     - Version:
+     0.1
+     
+     */
     @objc
     func getDestributionPoints() -> [CGFloat] {
         var x = self.bounds.minX
@@ -86,14 +126,33 @@ class GraphView: UIView {
         return result
     }
     
+    /**
+     The function will draw the graph of the Axes.
+     
+     - Author:
+     Zeyong Shan
+     - Version:
+     0.1
+     
+     */
     private func drawAxes() {
         let rect = self.bounds
+        var axesDrawer = AxesDrawer()
         axesDrawer.color = axesColor
         axesDrawer.drawAxes(in: rect, origin: origin, pointsPerUnit: scale * 17)
     }
     
-    private var axesDrawer = AxesDrawer()
-    
+    /**
+     This function will draw the graph of function.
+     It would make the lineWidth become thinner if the slope
+     of the line is larger than 999 or less than -999, to hide the line of unexist points.
+     - parameter rect: the CGRect that will be draw into.
+
+     - Author:
+         Zeyong Shan
+     - Version:
+         0.1
+     */
     private func drawFunction(_ rect: CGRect) {
         guard curvePoints.count == generatedPointsNumber else {
             return
@@ -125,14 +184,50 @@ class GraphView: UIView {
 
     }
     
+    /**
+     This function will calculate the distance between two points.
+     - parameters:
+         - from: the first point that used to calculate the distance
+         - to: the second point to calculate the distance
+     - returns:
+         this function return a CGFloat to store the calculate result.
+     - Author:
+     Zeyong Shan
+     - Version:
+     0.1
+     */
     private func distance(from a:CGPoint, to b:CGPoint) -> CGFloat {
         return sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2))
     }
     
+    /**
+     This function will calculate the slope a straight line that cross the
+     two points that passed in.
+     - parameters:
+         - from: the first point that used to calculate the slope
+         - to: the second point to calculate the slope
+     - returns:
+     this function return a CGFloat to store the calculate result.
+     - Author:
+     Zeyong Shan
+     - Version:
+     0.1
+     */
     private func slope(from a:CGPoint, to b:CGPoint) -> CGFloat {
         return (a.y - b.y)/(a.x - b.x)
     }
     
+    /**
+     This function will translate the position of point in the math axies to the
+     position on the view.
+     - parameter target: the parameter that will be translated
+     - returns:
+     this function return a CGPoint to store the calculate result.
+     - Author:
+     Zeyong Shan
+     - Version:
+     0.1
+     */
     private func translateToGraph(target: CGPoint) -> CGPoint {
         let originPoint = origin
         let x = target.x
@@ -140,6 +235,17 @@ class GraphView: UIView {
         return CGPoint(x: (originPoint.x) + 17 * scale * x, y: (originPoint.y) - 17 * scale * y)
     }
     
+    /**
+     This function will translate the position of point in the view to the
+     position in the math axies.
+     - parameter target: the parameter that will be translated
+     - returns:
+     this function return a CGPoint to store the calculate result.
+     - Author:
+     Zeyong Shan
+     - Version:
+     0.1
+     */
     private func translateToMath(target: CGPoint) -> CGPoint {
         let originPoint = origin
         let x = target.x
@@ -147,6 +253,17 @@ class GraphView: UIView {
         return CGPoint(x: (x - originPoint.x) / (17 * scale), y: -(y - originPoint.y) / (17 * scale))
     }
     
+    /**
+     This function will translate the length in the view to the
+     length in the math axies.
+     - parameter target: the parameter that will be translated
+     - returns:
+     this function return a CGFloat to store the calculate result.
+     - Author:
+     Zeyong Shan
+     - Version:
+     0.1
+     */
     private func translateLengthToMath(target: CGFloat) -> CGFloat {
         return target / (17 * scale)
     }
