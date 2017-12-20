@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Clacuator/Calculator/CalculatorBrain.swift"
-            timestampString = "530349142.27348"
+            filePath = "Clacuator/Calculator/CalculatorViewController.swift"
+            timestampString = "535357788.920765"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "248"
-            endingLineNumber = "248"
-            landmarkName = "perfromOperator(_:)"
+            startingLineNumber = "292"
+            endingLineNumber = "292"
+            landmarkName = "getYFromX(getValueThrough:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

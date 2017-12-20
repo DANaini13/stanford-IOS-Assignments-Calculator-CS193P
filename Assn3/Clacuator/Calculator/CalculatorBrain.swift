@@ -244,24 +244,19 @@ public struct ClacualtorBrain {
             }
             pendingStep = steps.count - 1
         case .equal:
-            guard pendingStep != nil && steps.count != 0 else {
-                switch(currentOperand) {
-                case .value(let value)? :
-                    descriptionGenerator.addConstant(currentNum: String(value))
-                    steps.append(Step.constantGrabing(value: value, description: descriptionGenerator))
-                case .variable? :
-                    descriptionGenerator.addUnaryOperationToCurrentDescription(operation: "", prefix: true)
-                    steps.append(Step.unaryOperation(operation: {$0}, operand: currentOperand!, description: descriptionGenerator))
-                default:
-                    break
-                }
+            guard currentOperand != nil else {
                 return
             }
-            descriptionGenerator.performBinaryOperation()
+            guard pendingStep != nil && steps.count != 0 else {
+                descriptionGenerator.addUnaryOperationToCurrentDescription(operation: "", prefix: true)
+                steps.append(Step.unaryOperation(operation: {$0}, operand: currentOperand!, description: descriptionGenerator))
+                return
+            }
             if operandSet {
+                descriptionGenerator.performBinaryOperation()
                 steps.append(Step.performBinaryOperation(pedingStep: pendingStep!, secondOperand: currentOperand!, description: descriptionGenerator))
             } else {
-                steps.append(Step.performBinaryOperation(pedingStep: pendingStep!, secondOperand: Operand.resultOfStep(steps.count - 1), description: descriptionGenerator))
+               return
             }
             pendingStep = nil
         }
